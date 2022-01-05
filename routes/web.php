@@ -14,10 +14,38 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (\App\Helpers\Telegram $telegram) {
-//    $resp= $telegram->sendMessage(env('TELEGRAM_ID'),'fgghgfhj' );
+    $buttons = [
+        'inline_keyboard' => [
+            [
+                [
+                    'text' => 'Telegram',
+                    'callback_data' => 'telega'
+                ],
+                [
+                    'text' => 'Mail',
+                    'callback_data' => 'mail'
+                ],
+                [
+                    'text' => 'FB Messager',
+                    'callback_data' => 'msg_fb'
+                ],
+            ],
+            [
+                [
+                    'text' => 'Slack',
+                    'callback_data' => 'slack'
+                ],
+                [
+                    'text' => 'Viber',
+                    'callback_data' => 'viber'
+                ],
+
+            ],
+        ]
+    ];
+    $resp = $telegram->editButtons(env('TELEGRAM_ID'), 'Перейти к просмотру в мессаджерах', json_encode($buttons), 76);
 //    dd($resp->body());
-  $resp=  $telegram->sendDocument(env('TELEGRAM_ID'), '404.jpg',70 );
-     dd( $resp->body());
+//    $telegram->editMessage(env('TELEGRAM_ID'), 'Перейти к просмотру в мессаджерах',  76);
 });
 
 
