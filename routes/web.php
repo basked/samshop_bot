@@ -13,14 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-
-    \Illuminate\Support\Facades\Http::post('https://api.tlgr.org/bot5058359738:AAFkfQgu-_y84RzU0lR5v0IgP4qNTwsYCKY/sendMessage',[
-        'chat_id'=>487032241,
-        'text'=>'<pre>basked</pre>',
-        'parse_mode'=>'html'
-    ])
+Route::get('/', function (\App\Helpers\Telegram $telegram) {
+//    $resp= $telegram->sendMessage(env('TELEGRAM_ID'),'fgghgfhj' );
+//    dd($resp->body());
+  $resp=  $telegram->sendDocument(env('TELEGRAM_ID'), '404.jpg',70 );
+     dd( $resp->body());
 });
 
 

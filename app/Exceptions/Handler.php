@@ -40,13 +40,14 @@ class Handler extends ExceptionHandler
 
     public function report(Throwable $e)
     {
+
         $data = [
             'description' => $e->getMessage(),
             'code' => $e->getCode(),
             'file' => $e->getFile(),
             'line' => $e->getLine(),
         ];
-        $this->telegram->sendMessage(487032241, (string)view('telegram.errors', $data));
+        $this->telegram->sendMessage( env('TELEGRAM_ID') , (string)view('telegram.errors', $data));
     }
 
     /**
@@ -59,6 +60,5 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
 
         });
-
     }
 }
