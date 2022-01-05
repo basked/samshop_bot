@@ -14,5 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+
+    \Illuminate\Support\Facades\Http::post('https://api.tlgr.org/bot5058359738:AAFkfQgu-_y84RzU0lR5v0IgP4qNTwsYCKY/sendMessage',[
+        'chat_id'=>487032241,
+        'text'=>'<pre>basked</pre>',
+        'parse_mode'=>'html'
+    ])
 });
+
+
+
+
+
+

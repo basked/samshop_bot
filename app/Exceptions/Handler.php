@@ -35,7 +35,22 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+
+            $data = [
+                'description' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ];
+
+            \Illuminate\Support\Facades\Http::post('https://api.tlgr.org/bot5058359738:AAFkfQgu-_y84RzU0lR5v0IgP4qNTwsYCKY/sendMessage',
+                [
+                    'chat_id' => 487032241,
+                    'text' =>  (string) view('telegram.errors',  $data),
+//                    'text' => $data,
+                    'parse_mode' => 'html'
+                ]);
         });
     }
 }
