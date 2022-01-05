@@ -2,11 +2,22 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\Telegram;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+
 class Handler extends ExceptionHandler
 {
+
+    protected $telegram;
+
+    public function __construct(Container $containe, Telegram $telegram)
+    {
+        $this->telegram = $telegram;
+    }
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -27,6 +38,17 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    public function report(Throwable $e)
+    {
+        $data = [
+            'description' => $e->getMessage(),
+            'code' => $e->getCode(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ];
+        $this->telegram->sendMessage(487032241, (string)view('telegram.errors', $data));
+    }
+
     /**
      * Register the exception handling callbacks for the application.
      *
@@ -36,21 +58,7 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
 
-
-            $data = [
-                'description' => $e->getMessage(),
-                'code' => $e->getCode(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ];
-
-            \Illuminate\Support\Facades\Http::post('https://api.tlgr.org/bot5058359738:AAFkfQgu-_y84RzU0lR5v0IgP4qNTwsYCKY/sendMessage',
-                [
-                    'chat_id' => 487032241,
-                    'text' =>  (string) view('telegram.errors',  $data),
-//                    'text' => $data,
-                    'parse_mode' => 'html'
-                ]);
         });
+
     }
 }
