@@ -2,16 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/orders/create', [\App\Http\Controllers\OrderController::class, 'create'])->name('orders.create');
+Route::get('/orders/{order}', [\App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
+Route::post('/orders/store', [\App\Http\Controllers\OrderController::class, 'store'])->name('orders.store');
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function (\App\Helpers\Telegram $telegram) {
     $buttons = [
@@ -22,7 +16,7 @@ Route::get('/', function (\App\Helpers\Telegram $telegram) {
                     'callback_data' => 'telega'
                 ],
                 [
-                    'text' => 'Mail',
+                    'text' => 'Maiil',
                     'callback_data' => 'mail'
                 ],
                 [
@@ -43,11 +37,9 @@ Route::get('/', function (\App\Helpers\Telegram $telegram) {
             ],
         ]
     ];
-    $resp = $telegram->editButtons(env('TELEGRAM_ID'), 'Перейти к просмотру в мессаджерах', json_encode($buttons), 76);
-//    dd($resp->body());
-//    $telegram->editMessage(env('TELEGRAM_ID'), 'Перейти к просмотру в мессаджерах',  76);
+    $resp = $telegram->sendMessage(env('TELEGRAM_ID'), 'basked');
 });
-
+*/
 
 
 

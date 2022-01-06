@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
             'file' => $e->getFile(),
             'line' => $e->getLine(),
         ];
-        $this->telegram->sendMessage( env('TELEGRAM_ID') , (string)view('telegram.errors', $data));
+//        $this->telegram->sendMessage( env('TELEGRAM_ID') , (string)view('telegram.errors', $data));
     }
 
     /**
@@ -61,4 +61,6 @@ class Handler extends ExceptionHandler
 
         });
     }
+
+
 }

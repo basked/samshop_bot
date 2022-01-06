@@ -14,7 +14,7 @@ class Telegram
     protected $bot;
     const url = 'https://api.tlgr.org/bot';
 
-    public function __construct(Http $http, $bot)
+    public function __construct(Http $http, $bot='5058359738:AAFkfQgu-_y84RzU0lR5v0IgP4qNTwsYCKY' )
     {
         $this->bot = $bot;
         $this->http = $http;
